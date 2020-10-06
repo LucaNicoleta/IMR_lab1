@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,12 +10,19 @@ public class control : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        //Vector3 Dist = Vector3.Distance(Camera.main.transform.position, transform.position) if (Dist <= TurnDist)
+        animator.SetBool("camera_is_near", false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        animator.SetBool("camera_is_near", true);
+        
+        
+        float dis = Vector3.Distance(Camera.main.transform.position, transform.position);
+        if(dis<0.15)
+            animator.SetBool("camera_is_near", true);
+        else
+            animator.SetBool("camera_is_near", false);
+        Debug.Log("Hey"+dis);
     }
 }
